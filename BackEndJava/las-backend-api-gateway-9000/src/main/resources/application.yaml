@@ -27,51 +27,9 @@ spring:
       routes:
         #用户模块route
         - id: user-signin
-          uri: http://localhost:3001
-          predicates:
-            - Path=/usersignin/**
-            - Method=GET,POST
-        #banCRUD模块route
-        - id: ban-crud
-          uri: http://localhost:2000
-          predicates:
-            - Path=/bancrud/**
-            - Method=GET,POST
-        #report-game模块route
-        - id: report-game
-          uri: http://localhost:5000
-          predicates:
-            - Path=/reportgame/**
-            - Method=GET,POST
-        #audit-report-game模块route
-        - id: audit-report-game
-          uri: http://localhost:1100
-          predicates:
-            - Path=/auditreportgame/**
-            - Method=GET,POST
-        #op-crud模块route
-        - id: op-crud
-          uri: http://localhost:8002
-          predicates:
-            - Path=/opcrud/**
-            - Method=GET,POST
-        #user-config模块route
-        - id: user-config
           uri: http://localhost:3000
           predicates:
-            - Path=/userconfig/**
-            - Method=GET,POST
-        #user-config-append-user-cover模块route
-        - id: user-config-append-user-cover
-          uri: http://localhost:3002
-          predicates:
-            - Path=/userconfigappendusercover/**
-            - Method=GET,POST
-        #massge-comments模块route
-        - id: massge-comments
-          uri: http://localhost:6001
-          predicates:
-            - Path=/massgecomments/**
+            - Path=/usersignin/**
             - Method=GET,POST
     nacos:
       config:
