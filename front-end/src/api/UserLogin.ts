@@ -11,7 +11,7 @@ function UserLogin(username:string,password:string,message:Ref<string>):void{
         message.value=r.data.msg;
         if(r.data.code===200){
             ElNotification({title:"成功",message:message.value,type:"success",customClass:"LoginSuccess",duration:800});
-            router.replace("/about");
+            router.replace("/user");
         }else {
             ElNotification({title:"失败",message:message.value,type:"error",customClass:"LoginError",duration:800});
         }
