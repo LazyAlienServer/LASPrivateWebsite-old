@@ -26,11 +26,17 @@ spring:
             maxAge: 360000  # 这次跨域检测的有效期
       routes:
         #用户模块route
-        - id: user-signin
+        - id: user
           uri: http://localhost:3000
           predicates:
             - Path=/usersignin/**
             - Method=GET,POST
+        #信息获取
+        - id: information
+          uri: http://localhost:4000
+          predicates:
+              - Path=/information/**
+              - Method=GET,POST
     nacos:
       config:
         server-addr: 127.0.0.1:8848

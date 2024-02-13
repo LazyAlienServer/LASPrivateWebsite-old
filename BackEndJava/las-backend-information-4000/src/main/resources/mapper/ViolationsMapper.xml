@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.las.lasbackendinformation4000.mapper.ViolationsMapper">
+
+    <select id="getViolationsList" resultType="com.las.lasbackendinformation4000.model.Violations">
+        select * from violations
+    </select>
+
+    <select id="getViolationsById" resultType="com.las.lasbackendinformation4000.model.Violations" parameterType="int">
+        select * from violations where id = #{id}
+    </select>
+
+    <select id="getViolationsByMinecraftUUID" resultType="com.las.lasbackendinformation4000.model.Violations">
+        select * from violations where minecraftUUID = #{minecraftUUID}
+    </select>
+
+    <select id="getViolationsByWebsiteUUID" resultType="com.las.lasbackendinformation4000.model.Violations" parameterType="string">
+        select * from violations where websiteUUID = #{websiteUUID}
+    </select>
+
+    <select id="getViolationsByReason" resultType="com.las.lasbackendinformation4000.model.Violations" parameterType="string">
+        select * from violations where reason = #{reason}
+    </select>
+
+    <select id="getViolationsByBannedTime" resultType="com.las.lasbackendinformation4000.model.Violations" parameterType="string">
+        select * from violations where bannedTime = #{bannedTime}
+    </select>
+
+    <select id="getViolationsByPermitTime" resultType="com.las.lasbackendinformation4000.model.Violations" parameterType="string">
+        select * from violations where permitTime = #{permitTime}
+    </select>
+
+    <insert id="addViolations" parameterType="com.las.lasbackendinformation4000.model.Violations">
+        insert into violations(minecraftUUID, websiteUUID, reason, bannedTime, permitTime) value (#{minecraftUUID},#{websiteUUID},#{reason},#{bannedTime},#{permitTime})
+    </insert>
+
+    <delete id="deleteViolationsByMinecraftUUID" parameterType="com.las.lasbackendinformation4000.model.Violations">
+        delete from violations where minecraftUUID = #{minecraftUUID}
+    </delete>
+
+</mapper>
