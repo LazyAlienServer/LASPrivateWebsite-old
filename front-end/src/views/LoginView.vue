@@ -1,7 +1,8 @@
 <template>
   <div class="login">
+<!--    原神？启动！-->
     <div class="el-container ">
-      <div class="el-aside">
+      <div class="el-aside" >
         <el-image class="el-image" :src="require('../assets/login/floatingcity.jpg')" :fit="'cover'"/>
       </div>
       <div id="form">
@@ -34,7 +35,7 @@
             <el-row justify="end" id="activate">
               <div class="ButtonBg">
                 <el-button class="activateButton" type="text" @click="">
-                  <p>账户激活</p>
+                  <p>激活账号</p>
                 </el-button>
                 <svg xmlns="http://www.w3.org/2000/svg" style="width: 3px; height: 13px">
                   <rect width="3" height="13"
@@ -58,7 +59,7 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  background-image: linear-gradient(60deg, rgb(228, 230, 242) 0%, rgb(234, 225,240) 100%);
+  background-color: rgb(231,228,241);
   padding: 0;
   flex-shrink: 0;
 }
@@ -89,7 +90,7 @@
   background-color:white;
   z-index:1;
   width: 665px;
-  height: 543px;
+  height: 100%;
 }
 
 @media (max-width: 1100px) {
@@ -110,12 +111,12 @@
   -webkit-background-clip: text;
   background-image: linear-gradient(103.58deg, rgba(130, 149, 255, 1) 0%, rgba(201, 124, 252, 1) 25%, rgba(130, 149, 255, 1) 50%, rgba(201, 124, 252, 1) 75%);
   background-size: 200% auto;
-  animation: gradientAnimate 2s linear infinite;
+  animation: gradientAnimate 1.5s linear infinite;
 }
 
 @keyframes gradientAnimate {
   0% {
-    background-position: 0% 0;
+    background-position: 0 0;
   }
   100% {
     background-position: 100% 0;
@@ -216,13 +217,13 @@
 }
 
 @keyframes loginButtonHover {
-  from {background-position: 0% 0}
+  from {background-position: 0 0}
   to {background-position: 200% 0}
 }
 
 .line{
   margin-top: 8px;
-  height: 1.4px;
+  height: 1.5px;
   width: 100%;
   background-color: black;
   text-align: center;
@@ -249,42 +250,13 @@
   color: #ce8cff;
 }
 
-@media (max-width: 690px) {
-  .el-container {
-    box-shadow: none;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .login {
-    background-image: none;
-    background-color: white;
-  }
-  #form {
-    width: 100%;
-  }
-  #user {
-    width: 70%;
-    left: 15%;
-  }
-  #login {
-    width: 64%;
-  }
-  #activate {
-    margin-right: 15%;
-  }
-}
-
 </style>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import UserRegister from "@/api/UserRegister";
+import {onMounted, ref} from "vue";
 import UserLogin from "@/api/UserLogin";
 import {ElNotification} from "element-plus";
-import { Lock,User} from '@element-plus/icons-vue'
+import {getCookie} from "typescript-cookie";
 
 let username = ref("");
 let password = ref("");
@@ -297,20 +269,24 @@ function Login(){
         UserLogin(username.value,password.value,message);
       }else ElNotification({title:"提示",message:"密码必须在6到18位之间",type:"warning",customClass:"RegisterWarn",duration:800});
     }else ElNotification({title:"提示",message:"用户名必须在3到16位之间",type:"warning",customClass:"RegisterWarn",duration:800});
-  }else {
-    ElNotification({title:"提示",message:"用户名和密码不能为空",type:"warning",customClass:"LoginWarn",duration:800});
+  }else ElNotification({title:"提示",message:"用户名和密码不能为空",type:"warning",customClass:"LoginWarn",duration:800});
+}
+function init(){
+  if(getCookie('userName')!=undefined&&getCookie('passwd')!=undefined){
+    UserLogin(getCookie('userName'),getCookie('passwd'),message);
   }
 }
+// function Register(){
+//   if(username.value.length>0 && password.value.length>0){
+//     if(username.value.length>=3&&username.value.length<=16){
+//       if(password.value.length>=6&&password.value.length<=18){
+//         UserRegister(username.value,password.value,message);
+//       }else ElNotification({title:"提示",message:"密码必须在6到18位之间",type:"warning",customClass:"RegisterWarn",duration:2000});
+//     }else ElNotification({title:"提示",message:"用户名必须在3到16位之间",type:"warning",customClass:"RegisterWarn",duration:2000});
+//   }else ElNotification({title:"提示",message:"用户名和密码不能为空",type:"warning",customClass:"RegisterWarn",duration:2000});
+// }
 
-function Register(){
-  if(username.value.length>0 && password.value.length>0){
-    if(username.value.length>=3&&username.value.length<=16){
-      if(password.value.length>=6&&password.value.length<=18){
-        UserRegister(username.value,password.value,message);
-      }else ElNotification({title:"提示",message:"密码必须在6到18位之间",type:"warning",customClass:"RegisterWarn",duration:2000});
-    }else ElNotification({title:"提示",message:"用户名必须在3到16位之间",type:"warning",customClass:"RegisterWarn",duration:2000});
-  }else {
-    ElNotification({title:"提示",message:"用户名和密码不能为空",type:"warning",customClass:"RegisterWarn",duration:2000});
-  }
-}
+onMounted(()=>{
+  init();
+});
 </script>
